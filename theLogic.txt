@@ -1,0 +1,42 @@
+how did I solve this problem(linear search):
+1 => takes the placesCount(N) and the timesCount(M) 
+from the first line
+
+2 => calculate the sum(totalCookies) of the biscuits
+line by line and at the same time save
+the value of each line in a list
+
+3 => call the function solve()
+
+4 => In fn solve first sort the list
+
+5 => defined the placesList, delete all the 0
+
+6 => check if placesCount(N) more than timesCount(M) 
+return 0, that means that he can not visit all the places
+because in one place he takes an hour. or if totalCookies 0 
+that means there are no biscuits in the office so we 
+return also 0
+
+7 => if placesCount(N) the same us timesCount(m) return 
+the max Cn because he will visit every place just one time 
+
+8 => calculate the min num of K(k = sum / m), and 
+the max (k = cnMax)
+
+9 => Call the fun getCookiesCount
+
+10 => i defined the timesCount us m because change the value 
+of m not of timesCount
+
+11 => copied the value of placesList because of the same cause
+
+12 => loop for each element (e - k) if the e is smaller than k we 
+return 0 else k - e
+
+13 => while min < max, if i the same as len(list) we give the i 
+the value 0 to return the loop with the new value of the list without 0
+
+14 => if m < 0 that means that he takes more than m to eat all the 
+biscuits so we add 1 to min tell he finished and the m >= 0
+that means he finishes in time and we return the min as k
