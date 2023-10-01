@@ -6,55 +6,39 @@ let list = [];
 let totalCookies = 0;
 let linesCount = 0;
 
-const getCookiesCount = (cookie,placesList,timesCount,min,max) => {
-  let m = timesCount
-  let list = [...placesList]
-  let i = 0
-  while(min < max) {
-    if(i == list.length){
-      i = 0
-      list = list.filter(e => e != 0)
-    }
-
-    list[i] <= min ? list[i] = 0 : list[i] -= min
-
-    i++
-    m--
-
-    if(m >= 0 && list.filter(e => e != 0) == '') {
-      cookie = min
-      break
-    } else if(m < 0 && list.filter(e => e != 0) != ''){
-      list = [...placesList]
-      m = timesCount
-      min++
-      i = 0
-    }
+const isHighEnough = (k,placesList) => {
+  let m = timesCount;
+  for( cookieCount of placesList ) {
+    m -= Math.ceil(cookieCount/k);
   }
-  return min
-}
 
+  return m >= 0;
+}
 
 const solve = () => {
   let sort = list.sort((a,b) => a-b)
   let placesList = list.length == 1 ? [list[0]] : sort.slice(sort.findIndex(e => e > 0))
 
-  if (placesCount > timesCount || totalCookies == 0) {
+  if (placesList.length > timesCount || totalCookies == 0) {
     return 0;
   }
-  if(placesCount == timesCount){
+  if(placesList.length == timesCount){
     return placesList[placesList.length - 1]
   }
 
   let minCookie = totalCookies < timesCount ? 1 : Math.floor(totalCookies / timesCount);
   let maxCookie = placesList[placesList.length - 1];
-  let cookies  = 0;
+  while (minCookie < maxCookie) {
+    const testk = Math.floor((minCookie + maxCookie) / 2);
 
-  cookies = getCookiesCount(cookies,placesList,timesCount,minCookie, maxCookie);
-
-  return cookies
+    if (isHighEnough(testk,placesList)) {
+      maxCookie = testk;
+    } else {
+      minCookie = testk+1;
+    }
+  }
+  return minCookie
 };
-
 
 readline.on('line', (line) => {
   if (linesCount === 0) {
